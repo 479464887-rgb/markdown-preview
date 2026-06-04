@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Markdown Preview - 免费在线工具</title>
+<meta name="description" content="在线 Markdown 编辑器 - 实时预览，支持 GitHub Flavored Markdown">
+<style>*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0d1117;color:#c9d1d9;min-height:100vh;display:flex;flex-direction:column}
+header{background:#161b22;border-bottom:1px solid #30363d;padding:16px 24px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:18px;font-weight:700;color:#58a6ff}
+.logo span{color:#f0c040}
+header .badge{font-size:10px;background:#daa520;color:#fff;padding:2px 8px;border-radius:10px;margin-left:8px}
+main{max-width:700px;margin:0 auto;padding:32px 24px;flex:1}
+.tool-wrapper{padding:20px 0}
+footer{padding:16px 24px;border-top:1px solid #21262d;text-align:center;font-size:12px;color:#484f58}
+footer a{color:#58a6ff;text-decoration:none;margin:0 8px}
+.btn-primary:hover{background:#2ea043!important}
+.btn:hover{background:#30363d!important}
+input:focus,textarea:focus,select:focus{outline:none;border-color:#58a6ff!important}
+.btn{font-family:inherit}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">🛠 <span>Dev</span>Kit<span class="badge">BETA</span></div>
+  <div style="font-size:11px;color:#8b949e">🔒 本地处理 · 数据不上传</div>
+</header>
+<main>
+  <h1 style="font-size:24px;margin-bottom:4px">Markdown Preview</h1>
+  <p style="color:#8b949e;font-size:14px;margin-bottom:8px">在线 Markdown 编辑器 - 实时预览，支持 GitHub Flavored Markdown</p>
+<div class="tool-wrapper">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+    <div>
+      <div style="font-size:12px;color:#8b949e;margin-bottom:6px">📝 Markdown</div>
+      <textarea id="md-input" placeholder="# 标题\n\n**粗体** *斜体*\n\n- 列表项1\n- 列表项2\n\n[链接](https://example.com)\n\n```js\nconsole.log('Hello')\n```" rows="16" style="width:100%;padding:12px;font-size:13px;border:1px solid #30363d;border-radius:8px;background:#0d1117;color:#c9d1d9;resize:vertical;outline:none;font-family:mono;line-height:1.6;min-height:400px"></textarea>
+    </div>
+    <div>
+      <div style="font-size:12px;color:#8b949e;margin-bottom:6px">👁 预览</div>
+      <div id="md-preview" style="padding:16px;border:1px solid #30363d;border-radius:8px;background:#161b22;min-height:400px;line-height:1.8;overflow:auto"></div>
+    </div>
+  </div>
+  <div style="display:flex;gap:8px;margin-top:12px">
+    <button class="btn btn-primary" style="padding:8px 16px;background:#238636;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600" onclick="copyMD()">📋 复制 HTML</button>
+    <button class="btn" style="padding:8px 16px;background:#21262d;color:#c9d1d9;border:1px solid #30363d;border-radius:6px;cursor:pointer;font-size:12px" onclick="document.getElementById('md-input').value=defaultMD;renderMD()">🔄 加载示例</button>
+  </div>
+</div>
+</main>
+<footer>
+  <a href="https://github.com/479464887-rgb/markdown-preview">GitHub</a>
+  <span>·</span>
+  <span>© 2026 DevKit</span>
+</footer>
+<script>const defaultMD=`# Markdown 预览\n\n**粗体** *斜体* ~~删除线~~\n\n## 代码块\n\n\`\`\`javascript\nfunction hello() {\n  console.log("Hello World!");\n}\n\`\`\`\n\n## 列表\n\n- 项目 1\n- 项目 2\n  - 子项目\n\n## 表格\n\n| 名称 | 值 |\n|------|-----|\n| CPU | 8核 |\n| 内存 | 16GB |\n\n## 链接和图片\n\n[GitHub](https://github.com)\n\n> 引用文本\n\n---\n\n### 任务列表\n\n- [x] 已完成\n- [ ] 未完成`;
+
+function renderMD(){
+  let md=document.getElementById('md-input').value;
+  let html=md
+    .replace(/^### (.+)$/gm,'<h3>$1</h3>')
+    .replace(/^## (.+)$/gm,'<h2>$1</h2>')
+    .replace(/^# (.+)$/gm,'<h1>$1</h1>')
+    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g,'<em>$1</em>')
+    .replace(/~~(.+?)~~/g,'<del>$1</del>')
+    .replace(/`([^`]+)`/g,'<code style=background:#30363d;padding:2px 6px;border-radius:3px;font-size:12px>$1</code>')
+    .replace(/```(\w*)\n([\s\S]*?)```/g,'<pre style=background:#0d1117;border:1px solid #30363d;border-radius:6px;padding:12px;overflow:auto><code>$2</code></pre>')
+    .replace(/^> (.+)$/gm,'<blockquote style="border-left:3px solid #58a6ff;padding-left:12px;color:#8b949e;margin:8px 0">$1</blockquote>')
+    .replace(/^---$/gm,'<hr style="border-color:#30363d;margin:16px 0">')
+    .replace(/\[(.+?)\]\((.+?)\)/g,'<a href="$2" style=color:#58a6ff target=_blank>$1</a>')
+    .replace(/^- \[x\] (.+)$/gm,'<div>☑ $1</div>')
+    .replace(/^- \[ \] (.+)$/gm,'<div>☐ $1</div>')
+    .replace(/^- (.+)$/gm,'<li>$1</li>')
+    .replace(/^\|(.+)\|$/gm,(line)=>{const cells=line.split('|').filter(c=>c.trim());if(cells.every(c=>/^[-:]+$/.test(c.trim())))return'';return'<tr>'+cells.map(c=>`<td style="padding:4px 12px;border:1px solid #30363d">${c.trim()}</td>`).join('')+'</tr>';})
+    .replace(/(<tr>.*<\/tr>)/s, match => '<table style="border-collapse:collapse;margin:8px 0">'+match+'</table>');
+  document.getElementById('md-preview').innerHTML=html;
+}
+document.getElementById('md-input').addEventListener('input',()=>{clearTimeout(window._mdt);window._mdt=setTimeout(renderMD,200)});
+document.getElementById('md-input').value=defaultMD;
+function copyMD(){navigator.clipboard.writeText(document.getElementById('md-preview').innerHTML);}
+renderMD();
+</script>
+</body>
+</html>
