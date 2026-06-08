@@ -10,7 +10,14 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛠</text></svg>">
 
 <meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛠</text></svg>">
+<meta name="theme-color" content="#0d1117">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta property="og:title" content="Markdown Preview - 免费Online Tools — DevKit Tools">
+<meta property="og:description" content="在线 Markdown Edit器 - 实时Preview，支持 GitHub Flavored Markdown">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://479464887-rgb.github.io/markdown-preview/">
+<meta name="twitter:card" content="summary_large_image">
 <title>Markdown Preview - 免费Online Tools</title>
 <meta name="description" content="在线 Markdown Edit器 - 实时Preview，支持 GitHub Flavored Markdown">
 <style>*{margin:0;padding:0;box-sizing:border-box}
@@ -68,7 +75,9 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:#58a6ff!import
   <span>·</span>
   <span>© 2026 DevKit</span>
 </footer>
-<script>const defaultMD=`# Markdown Preview\n\n**粗体** *斜体* ~~Delete线~~\n\n## 代码块\n\n\`\`\`javascript\nfunction hello() {\n  console.log("Hello World!");\n}\n\`\`\`\n\n## 列表\n\n- 项目 1\n- 项目 2\n  - 子项目\n\n## 表格\n\n| 名称 | 值 |\n|------|-----|\n| CPU | 8核 |\n| 内存 | 16GB |\n\n## 链接和图片\n\n[GitHub](https://github.com)\n\n> 引用文本\n\n---\n\n### 任务列表\n\n- [x] 已完成\n- [ ] 未完成`;
+<script>
+'use strict';
+const defaultMD=`# Markdown Preview\n\n**粗体** *斜体* ~~Delete线~~\n\n## 代码块\n\n\`\`\`javascript\nfunction hello() {\n  console.log("Hello World!");\n}\n\`\`\`\n\n## 列表\n\n- 项目 1\n- 项目 2\n  - 子项目\n\n## 表格\n\n| 名称 | 值 |\n|------|-----|\n| CPU | 8核 |\n| 内存 | 16GB |\n\n## 链接和图片\n\n[GitHub](https://github.com)\n\n> 引用文本\n\n---\n\n### 任务列表\n\n- [x] 已完成\n- [ ] 未完成`;
 
 function renderMD(){
   let md=document.getElementById('md-input').value;
